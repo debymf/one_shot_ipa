@@ -1,0 +1,4 @@
+[default]
+txt_location = "./sample/sample_data/example_file.txt"
+[test]
+txt_location = "./tests/sample_data/example_file.txt"
