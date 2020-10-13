@@ -39,7 +39,6 @@ class BM25FilterTask(Task):
                 page_strings[id_p] = clean_page(content_page)
 
             page_strings["phrase"] = content["phrase"].split()
-            logger.info(page_strings["phrase"])
 
             fit_class = BM25Fit()
             ix = fit_class.run(page_strings)
@@ -64,7 +63,6 @@ class BM25FilterTask(Task):
             self.run_bm25,
             fn_args=dict(pages=pages, select_k=select_k,),
             batch_count=4,
-            is_parallel=False,
         )
 
         for id_i, found_values in filtered_values.items():
