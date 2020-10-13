@@ -59,7 +59,8 @@ class BM25FilterTask(Task):
         filtered_values = ray_executor.run(
             data,
             self.run_bm25,
-            fn_args=dict(pages=pages, select_k=select_k, batch_count=4),
+            fn_args=dict(pages=pages, select_k=select_k,),
+            batch_count=4,
         )
 
         for id_i, found_values in filtered_values.items():
