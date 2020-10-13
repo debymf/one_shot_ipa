@@ -15,16 +15,14 @@ class AddParentChildrenTask(Task):
             selected_page = dataset[id_entry]["webpage"]
             new_list_results = list(retrieved)
             i = 0
-            for r in tqdm(retrieved):
+            for r in retrieved:
                 i = i + 1
                 if r in pages[selected_page]:
-                    logger.info("Addin stuff")
                     if "parent" in pages[selected_page][r]:
                         new_list_results.append(pages[selected_page][r]["parent"])
                     if "children" in pages[selected_page][r]:
                         new_list_results.extend(pages[selected_page][r]["children"])
-            print(retrieved)
-            print(new_list_results)
+
             expanded_results[id_entry] = new_list_results
 
         relevant_values = 0
