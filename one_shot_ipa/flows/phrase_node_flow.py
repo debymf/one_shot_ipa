@@ -16,7 +16,7 @@ cache_args = dict(
 
 task_pn_data = PreprocessPNDataTask(**cache_args)
 task_pn_pages = PreprocessPNPagesTask(**cache_args)
-task_filter_bm25 = BM25FilterTask(**cache_args)
+task_filter_bm25 = BM25FilterTask()
 task_add_parent_children = AddParentChildrenTask()
 
 TRAIN_PN_LOCATION = settings["phrasenode_train"]

@@ -76,6 +76,6 @@ class BM25FilterTask(Task):
             relevant_values = relevant_values + node_found
             total_runs = total_runs + 1
 
-            logger.info(f"Recall at {select_k}: {relevant_values/total_runs}")
+            # logger.info(f"Recall at {select_k}: {relevant_values/total_runs}")
         logger.info(f"*** Final Recall at {select_k}: {relevant_values/total_runs} ***")
         return filtered_values
