@@ -1,4 +1,9 @@
 [default]
-txt_location = "./sample/sample_data/example_file.txt"
+phrasenode_train = "./one_shot_ipa/datasets/phrasenode/train.jsonl"
+phrasenode_test = "./one_shot_ipa/datasets/phrasenode/test.jsonl"
+phrasenode_dev = "./one_shot_ipa/datasets/phrasenode/dev.jsonl"
+phrasenode_pages = "./one_shot_ipa/datasets/phrasenode/pages/"
 [test]
-txt_location = "./tests/sample_data/example_file.txt"
+phrasenode_dataset = "./tests/sample_data/example_file.txt"
+phrasenode_sample = "./tests/datasets/phrasenode/sample.jsonl"
+phrasenode_pages = "./tests/datasets/phrasenode/pages/"

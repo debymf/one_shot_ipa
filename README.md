@@ -8,6 +8,13 @@ Prefect (https://docs.prefect.io/) Task Flow paradigm base code for data science
 pip install -r requirements.txt
 pip install -r requirements-dev.txt
 ``` 
+
+Using the caching
+
+```
+export PREFECT__FLOWS__CHECKPOINTING=true
+```
+
 ### Running the tests
 
 Example test:

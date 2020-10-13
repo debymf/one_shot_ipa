@@ -1,5 +1,6 @@
 # Created by .ignore support plugin (hsz.mobi)
 ### Python template
+
 # Byte-compiled / optimized / DLL files
 *.msgpack
 prefect-result-*
@@ -187,3 +188,6 @@ samples/
 *.zip
 .noseids
 blub
+
+# Project specifics
+one_shot_ipa/datasets
