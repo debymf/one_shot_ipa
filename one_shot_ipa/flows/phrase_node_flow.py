@@ -22,6 +22,8 @@ TRAIN_PN_LOCATION = settings["phrasenode_train"]
 TEST_PN_LOCATION = settings["phrasenode_test"]
 DEV_PN_LOCATION = settings["phrasenode_dev"]
 
+SELECTED_K = 10
+
 with Flow("running-phase-node") as f:
     pages = task_pn_pages()
     with tags("train"):
@@ -30,6 +32,6 @@ with Flow("running-phase-node") as f:
         test = task_pn_data(TEST_PN_LOCATION)
     with tags("dev"):
         dev = task_pn_data(DEV_PN_LOCATION)
-    task_filter_bm25(pages, train)
+    task_filter_bm25(pages, train, select_k=SELECTED_K)
 
 f.run()
