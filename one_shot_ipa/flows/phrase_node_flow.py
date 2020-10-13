@@ -16,7 +16,7 @@ cache_args = dict(
 
 task_pn_data = PreprocessPNDataTask(**cache_args)
 task_pn_pages = PreprocessPNPagesTask(**cache_args)
-task_filter_bm25 = BM25FilterTask()
+task_filter_bm25 = BM25FilterTask(**cache_args)
 
 TRAIN_PN_LOCATION = settings["phrasenode_train"]
 TEST_PN_LOCATION = settings["phrasenode_test"]
@@ -32,6 +32,6 @@ with Flow("running-phase-node") as f:
         test = task_pn_data(TEST_PN_LOCATION)
     with tags("dev"):
         dev = task_pn_data(DEV_PN_LOCATION)
-    task_filter_bm25(pages, train, select_k=SELECTED_K)
+    filtering_at_k = task_filter_bm25(pages, train, select_k=SELECTED_K)
 
 f.run()
