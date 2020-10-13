@@ -25,6 +25,7 @@ class BM25FilterTask(Task):
                         pages_string.extend(in_content.split())
                 else:
                     pages_string.extend(str(content_p).split())
+
             return pages_string
 
         filtered_values = dict()
@@ -38,6 +39,7 @@ class BM25FilterTask(Task):
                 page_strings[id_p] = clean_page(content_page)
 
             page_strings["phrase"] = content["phrase"].split()
+            logger.info(page_strings["phrase"])
 
             fit_class = BM25Fit()
             ix = fit_class.run(page_strings)
@@ -46,10 +48,11 @@ class BM25FilterTask(Task):
             retrieval_results = search_class.run(
                 {"query_phrase": page_strings["phrase"]}, ix, limit=select_k
             )
+
             filtered_values[id_i] = list(retrieval_results["query_phrase"].keys())[1:]
         return filtered_values
 
-    def run(self, pages, data, select_k=200):
+    def run(self, pages, data, select_k=10):
         logger.info(f"*** Running BM25 Filter Task - Selecting {select_k} nodes ****")
         logger.info(f"Pages: {len(pages)}")
         logger.info(f"Data: {len(data)}")
@@ -61,6 +64,7 @@ class BM25FilterTask(Task):
             self.run_bm25,
             fn_args=dict(pages=pages, select_k=select_k,),
             batch_count=4,
+            is_parallel=False,
         )
 
         for id_i, found_values in filtered_values.items():

@@ -4,7 +4,7 @@ from dynaconf import settings
 from loguru import logger
 from prefect.engine.flow_runner import FlowRunner
 from one_shot_ipa.tasks.preprocessing import PreprocessPNDataTask, PreprocessPNPagesTask
-from one_shot_ipa.tasks.filtering import BM25FilterTask
+from one_shot_ipa.tasks.filtering import BM25FilterTask, AddParentChildrenTask
 import datetime
 from prefect.engine.results import LocalResult
 
@@ -17,6 +17,7 @@ cache_args = dict(
 task_pn_data = PreprocessPNDataTask(**cache_args)
 task_pn_pages = PreprocessPNPagesTask(**cache_args)
 task_filter_bm25 = BM25FilterTask(**cache_args)
+task_add_parent_children = AddParentChildrenTask()
 
 TRAIN_PN_LOCATION = settings["phrasenode_train"]
 TEST_PN_LOCATION = settings["phrasenode_test"]
@@ -32,6 +33,10 @@ with Flow("running-phase-node") as f:
         test = task_pn_data(TEST_PN_LOCATION)
     with tags("dev"):
         dev = task_pn_data(DEV_PN_LOCATION)
-    filtering_at_k = task_filter_bm25(pages, train, select_k=SELECTED_K)
+    filtered_values = filtering_at_k = task_filter_bm25(
+        pages, train, select_k=SELECTED_K
+    )
+    task_add_parent_children(train, pages, filtered_values)
+
 
 f.run()
